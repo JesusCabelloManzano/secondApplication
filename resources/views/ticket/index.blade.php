@@ -5,6 +5,7 @@
         <title>index</title>
     </head>
     <body>
+        <h1>Hola</h1>
         <h1>index</h1>
         @if(Session::get('op') !== null)
             <h2>
