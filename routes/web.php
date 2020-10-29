@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\BackendController;
+use App\Http\Controllers\BackendTicketController;
 
 Route::fallback([TicketController::class, 'fallback']);
 
@@ -28,3 +31,7 @@ Route::get('/', [TicketController::class, 'main'])->name('main');
 Route::get('ticket/ver', [TicketController::class, 'ver'])->name('ticket.ver');
 Route::resource('ticket', TicketController::class);
 Route::get('ticket/{id}/delete', [TicketController::class, 'delete'])->name('ticket.delete');
+
+Route::get('backend', [BackendController::class, 'main'])->name('backend.main');
+Route::resource('backend/ticket', BackendTicketController::class, ['names' => 'backend.ticket']);
+Route::get('backend/ticket/{id}/delete', [TicketController::class, 'delete'])->name('backend.ticket.delete');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class TicketController extends Controller
 {
@@ -45,9 +46,15 @@ class TicketController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $response = ['op' => 'store', 'result' => 1, 'id' => 0];
-        return redirect('ticket')->with($response);
+    {      
+        $price = $request->get('price');
+        if($price != 1){
+            //save
+            $response = ['op' => 'store', 'result' => 1, 'id' => 0];
+            return redirect('ticket')->with($response); //flash session
+        }else{
+            return back()->withInput(); //flash session
+        }
     }
 
     /**
@@ -63,6 +70,7 @@ class TicketController extends Controller
             return view('ticket.show', $datos);
         }else
             //return view('ticket.index', $this->tickets);
+            View::share('origen', 'Viene de show debido a un error en el número de ticket.');
             return $this->index();
     }
 
@@ -114,8 +122,6 @@ class TicketController extends Controller
         //redirect a la ruta anterior
         //return redirect()->back();
     }
-
-    /**************************************************************************/    
 
     function delete($id) {
         $datos = $this->tickets['tickets'][$id];

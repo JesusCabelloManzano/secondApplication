@@ -2,19 +2,24 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>create</title>
+        <title>Create Ticket</title>
     </head>
     <body>
-        <h1>create</h1>
-        <form action="{{ url('ticket') }}" method="post">
-            @csrf <!-- seguridad -->
-            <input type="text"   name=""      value="#" readonly/>
-            <input type="text"   name="name"  value=""/>
-            <input type="number" name="price" value=""/>
-            <input type="date"   name="date"  value=""/>
-            <input type="time"   name="time"  value=""/>
-            <input type="submit" value="create"/>
-        </form>
-        <a href="{{ url('ticket') }}">index</a><br>
+        @extends('base')
+        @section ('content')
+            <h3>Create</h3>
+            <br>
+            <form action="{{ url('ticket') }}" method="post">
+                @csrf <!-- seguridad -->
+                <input type="text"   name="" value="#" readonly/>
+                <input type="text"   name="name"  value="{{ old('name') }}"/>
+                <input type="number" name="price" value="{{ old('price') }}"/>
+                <input type="date"   name="date"  value="{{ old('date') }}"/>
+                <input type="time"   name="time"  value="{{ old('time') }}"/>
+                <input type="submit" value="create"/>
+            </form>
+            <br>
+            <a href="{{ url('ticket') }}">Index</a><br>
+        @endsection
     </body>
 </html>
